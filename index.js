@@ -1,12 +1,20 @@
 var express = require('express');
 var app = express();
-var port = 3000;
+var port = 8080;
+
+app.set('view engine', 'pug')
+app.set('views', './views')
+
 app.get('/',function(request,response){
-    response.send('<h1>Hello World</h1>');
+    response.render('index',{
+        name:'Quan'
+    });
 })
 
 app.get('/users',function(request,response){
-    response.send('User list');
+    response.render('user',{
+        names:['Quan','Duy','Lebron']
+    });
 })
 
 app.listen(port,function(){
