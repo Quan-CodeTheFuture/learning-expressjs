@@ -13,6 +13,8 @@ app.set('views', './views');
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+var shortID = require('shortid')
+
 app.get('/',(request,response)=>{
     response.render('index.pug')
 })
@@ -36,10 +38,17 @@ app.get("/users/create",(request,response)=>{
 })
 
 app.post("/users/create",(request,response)=>{
-    console.log(request.body);
-    request.body['id'] = db.get('users').value().length + 1;
+    request.body['id'] = shortID.generate();
     db.get('users').push(request.body).write();
     response.redirect('/users');
+})
+
+app.get("/users/:id",(request, response)=>{
+    var id = request.params.id;
+    var user = db.get('users').find({id:id}).value();
+    response.render('view.pug',{
+        users:user
+    })
 })
 
 app.listen(port,()=>{
