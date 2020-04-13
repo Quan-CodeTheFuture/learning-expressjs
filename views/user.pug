@@ -6,5 +6,5 @@ form(action="/users/search",method="GET")
 form(action="/users/create", method="GET")
     button() Add
 ul
-    each val in users
-        li= val.id+':'+val.name
+    each val,index in users
+        li= (index+1)+':'+val.name
