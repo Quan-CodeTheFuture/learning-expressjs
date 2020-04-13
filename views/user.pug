@@ -1,4 +1,10 @@
 h1 Users List:
+form(action="/users/search",method="GET")
+    input(type="text" name="q" value=nameInput)
+    button() Search
+
+form(action="/users/create", method="GET")
+    button() Add
 ul
-    each val, index in names
-        li= index+':'+val
+    each val in users
+        li= val.id+':'+val.name
