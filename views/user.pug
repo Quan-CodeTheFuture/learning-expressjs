@@ -7,4 +7,7 @@ form(action="/users/create", method="GET")
     button() Add
 ul
     each val,index in users
-        li= (index+1)+':'+val.name
+        li
+            span= (index+1)+':'+val.name
+            span &nbsp;
+            a(href="/users/"+val.id) view
