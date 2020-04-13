@@ -1,51 +1,47 @@
 var express = require('express');
 var app = express();
 var port = 8080;
-var bodyParser = require('body-parser')
-var users = [
-    {id:1, name:'Lebron'},
-    {id:2, name:'Quan'}
-]
 
-app.set('view engine', 'pug')
-app.set('views', './views')
+var low = require('lowdb');
+var FileSync = require('lowdb/adapters/FileSync');
+const { request, response } = require('express');
+var adapter = new FileSync('db.json');
+var db = low(adapter);
 
+app.set('view engine','pug');
+app.set('views', './views');
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-app.get('/',function(request,response){
-    response.render('index.pug',{
-        name:'Quan'
-    });
+app.get('/',(request,response)=>{
+    response.render('index.pug')
 })
 
-app.get('/users',function(request,response){
+app.get('/users',(request,response)=>{
     response.render('user.pug',{
-        users:users
-    });
-})
-
-app.get('/users/search', (request, response)=>{
-    var qu=request.query.q;
-    // console.log(request.query);
-    var matchedUsers = users.filter(data => data.name.toLocaleLowerCase().indexOf(qu.toLocaleLowerCase()) !== -1)
-    response.render('user.pug',{
-        users:matchedUsers,
-        nameInput:request.query.q
+        users:db.get('users').value()
     })
 })
 
-app.get('/users/create',function(request,response){
-    response.render('create.pug')
+app.get("/users/Search",(request,response)=>{
+    var q = request.query.q;
+    var matchedUsers = db.get('users').value().filter(data => data.name.toLocaleLowerCase().indexOf(q.toLocaleLowerCase()) !== -1);
+    response.render('user.pug',{
+        users:matchedUsers
+    });
 })
 
-app.post('/users/create',(request,response)=>{
+app.get("/users/create",(request,response)=>{
+    response.render('create.pug');
+})
+
+app.post("/users/create",(request,response)=>{
     console.log(request.body);
-    var data= request.body['id']=users.length+1;
-    users.push(request.body);
+    request.body['id'] = db.get('users').value().length + 1;
+    db.get('users').push(request.body).write();
     response.redirect('/users');
 })
 
-app.listen(port,function(){
-    console.log('Server listening on port ' + port);
+app.listen(port,()=>{
+    console.log('Server listening on port '+ port);
 })
