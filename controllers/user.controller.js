@@ -1,4 +1,5 @@
 var db = require('../db');
+var shortID = require('shortid')
 
 module.exports.index = function(request, response){
     response.render('user.pug',{
