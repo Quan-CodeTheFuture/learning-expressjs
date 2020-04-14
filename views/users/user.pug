@@ -1,0 +1,25 @@
+extend ../layouts/common.pug
+block content
+    h1
+        span Users List
+        a(class="btn btn-primary m-2", href ="/users/create") Add
+
+    .d-flex.align-item-center
+        form.d-flex.ml-auto(action="/users/search",method="GET")
+            input(type="text" name="q" value=nameInput class="form-control")
+            button(class= "btn btn-primary ml-2") Search
+
+
+    table.table
+        tr
+            th Name
+            th Phone
+            th Actions
+        each val,index in users
+            form(action="/users/"+val.id)
+                tr
+                    td= (index+1)+':'+val.name
+                    td= val.phone
+                    td
+                        button(class ="btn btn-primary") view
+

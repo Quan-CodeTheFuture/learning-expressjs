@@ -2,7 +2,7 @@ var db = require('../db');
 var shortID = require('shortid')
 
 module.exports.index = function(request, response){
-    response.render('user.pug',{
+    response.render('users/user.pug',{
         users:db.get('users').value()
     });
 };
@@ -10,13 +10,13 @@ module.exports.index = function(request, response){
 module.exports.search = (request,response)=>{
     var q = request.query.q;
     var matchedUsers = db.get('users').value().filter(data => data.name.toLocaleLowerCase().indexOf(q.toLocaleLowerCase()) !== -1);
-    response.render('user.pug',{
+    response.render('users/user.pug',{
         users:matchedUsers
     });
 }
 
 module.exports.create = (request,response)=>{
-    response.render('create.pug');
+    response.render('users/create.pug');
 }
 
 module.exports.postCreate = (request,response)=>{
@@ -30,7 +30,7 @@ module.exports.postCreate = (request,response)=>{
     }
     console.log(request.body);
     if(errors.length){
-        response.render('create.pug',{
+        response.render('users/create.pug',{
             errors: errors,
             values: request.body
         });
@@ -44,7 +44,7 @@ module.exports.postCreate = (request,response)=>{
 module.exports.getID = (request, response)=>{
     var id = request.params.id;
     var user = db.get('users').find({id:id}).value();
-    response.render('view.pug',{
+    response.render('users/view.pug',{
         users:user
     });
 }
