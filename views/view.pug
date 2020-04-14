@@ -1,8 +1,10 @@
-h1 view user
-b Name:
-span &nbsp;
-span= users.name
-br
-b ID:
-span &nbsp;
-span= users.id
+extend layouts/common.pug
+block content
+    h1 view user
+    b Name:
+    span &nbsp;
+    span= users.name
+    br
+    b ID:
+    span &nbsp;
+    span= users.id
