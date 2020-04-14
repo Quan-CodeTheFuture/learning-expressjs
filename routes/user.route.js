@@ -1,38 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-var db= require('../db');
+var controller = require('../controllers/user.controller');
 
-var shortID = require('shortid');
-router.get('/',(request,response)=>{
-    response.render('user.pug',{
-        users:db.get('users').value()
-    });
-});
+router.get('/',controller.index);
 
-router.get("/Search",(request,response)=>{
-    var q = request.query.q;
-    var matchedUsers = db.get('users').value().filter(data => data.name.toLocaleLowerCase().indexOf(q.toLocaleLowerCase()) !== -1);
-    response.render('user.pug',{
-        users:matchedUsers
-    });
-});
+router.get("/Search",controller.search);
 
-router.get("/create",(request,response)=>{
-    response.render('create.pug');
-});
+router.get("/create",controller.create);
 
-router.post("/create",(request,response)=>{
-    request.body['id'] = shortID.generate();
-    db.get('users').push(request.body).write();
-    response.redirect('/users');
-});
+router.post("/create",controller.postCreate);
 
-router.get("/:id",(request, response)=>{
-    var id = request.params.id;
-    var user = db.get('users').find({id:id}).value();
-    response.render('view.pug',{
-        users:user
-    });
-});
+router.get("/:id",controller.getID);
 module.exports = router;
