@@ -12,7 +12,7 @@ module.exports.postLogin = function(request,response){
             errors:[
                 'User does not exist'
             ],
-            value:request.body
+            values:request.body
         })
         return;
     }
@@ -22,9 +22,10 @@ module.exports.postLogin = function(request,response){
             errors:[
                 'Wrong password'
             ],
-            value:request.body  
+            values:request.body  
         })
         return;
     }
+    response.cookie('userId',user.id);
     response.redirect('/users');
 }

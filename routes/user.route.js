@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var validateCreate = require('../validate/users.validate')
-
+var validateCreate = require('../validate/users.validate');
 var controller = require('../controllers/user.controller');
 
 router.get('/',controller.index);

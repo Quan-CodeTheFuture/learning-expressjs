@@ -12,12 +12,13 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(express.static('public'));
 app.use(cookieParser());
 
+var authMiddleware = require('./Middleware/auth.middleware');
 
 app.get('/',(request,response)=>{
     response.render('index.pug')
 });
 
-app.use('/users',userRoute);
+app.use('/users',authMiddleware.requireAuth,userRoute);
 app.use('/auth',authRoute);
 
 app.listen(port,()=>{
