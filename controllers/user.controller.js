@@ -21,22 +21,6 @@ module.exports.create = (request,response)=>{
 
 module.exports.postCreate = (request,response)=>{
     request.body['id'] = shortID.generate();
-    var errors = [];
-    if(!request.body.name){
-        errors.push('Name is required');        
-    }
-    if(!request.body.phone){
-        errors.push('Phone is required');
-    }
-    console.log(request.body);
-    if(errors.length){
-        response.render('users/create.pug',{
-            errors: errors,
-            values: request.body
-        });
-        return;
-    }
-
     db.get('users').push(request.body).write();
     response.redirect('/users');
 }
