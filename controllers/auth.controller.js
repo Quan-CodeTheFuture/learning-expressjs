@@ -26,6 +26,8 @@ module.exports.postLogin = function(request,response){
         })
         return;
     }
-    response.cookie('userId',user.id);
+    response.cookie('userId',user.id,{
+        signed:true
+    });
     response.redirect('/users');
 }
