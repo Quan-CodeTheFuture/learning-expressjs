@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var app = express();
 var port = 8080;
@@ -10,7 +11,7 @@ app.set('views', './views');
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'));
-app.use(cookieParser('asajhsdguyeaiufhu234jvjvhjwda'));
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 var authMiddleware = require('./Middleware/auth.middleware');
 
