@@ -1,3 +1,32 @@
 h1{
     color:blue;
 }
+.picture{
+    width:auto;
+    height:230px;
+    background:url('/background/desktop.jpg');
+    background-position: center;
+    background-size:cover;
+}
+.text{
+    text-align: left;
+    width: auto;
+    padding: 5px 10px;
+}
+
+.box-picture{
+    float:left;
+    width:23%;
+    height:400px;
+    padding: 3px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.picture1{
+    width:auto;
+    height:230px;
+    background:url('/background/desktop1.jpg');
+    background-position: center;
+    background-size:cover;
+}

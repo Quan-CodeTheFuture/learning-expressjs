@@ -1,0 +1,39 @@
+extend ../layouts/common.pug
+block content
+    h1 Product
+    nav(aria-label='Page navigation example')
+        ul.pagination
+            - var number = 2
+            li.page-item
+                - var pages = (values - 1) || 1
+                a.page-link(href='/product?page='+(pages).toString()) Previous
+            - var l = (values - number) > 0 ? values-number: 1 
+            - var r = (values + number) < 13 ? values+number: 13 
+            while l <= r
+                if l!=values
+                    li.page-item
+                        a.page-link(href='/product?page='+l.toString())= l
+                else
+                    li.page-item.active
+                        a.page-link(href='/product?page='+l.toString())= l
+                - l++
+            li.page-item
+                -var pages = (values + 1) < 13 ? values+1: 13
+                a.page-link(href='/product?page='+(pages).toString()) Next
+
+    - var n = 0
+    while n < listArrayProduct.length
+        case listArrayProduct[n].image
+            when '/background/desktop.jpg'
+                .box-picture
+                    p= listArrayProduct[n].id
+                    .picture
+                    .text
+                        p= listArrayProduct[n].decription        
+            when '/background/desktop1.jpg'
+                .box-picture
+                    p= listArrayProduct[n].id
+                    .picture1
+                    .text
+                        p= listArrayProduct[n].decription        
+        - n++
