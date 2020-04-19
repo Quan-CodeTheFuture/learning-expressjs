@@ -1,5 +1,9 @@
 require('dotenv').config();
 var express = require('express');
+var mongoose = require('mongoose')
+
+mongoose.connect(process.env.MONGO_URL);
+
 var app = express();
 var port = 8080;
 var cookieParser = require('cookie-parser');
