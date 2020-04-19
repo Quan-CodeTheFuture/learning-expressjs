@@ -17,7 +17,7 @@ h1{
 .box-picture{
     float:left;
     width:23%;
-    height:500px;
+    height:auto;
     padding: 3px;
     border-radius: 10px;
     margin: 5px;
@@ -30,4 +30,10 @@ h1{
     background:url('/background/desktop1.jpg');
     background-position: center;
     background-size:cover;
+}
+
+.group-col::after{
+    content: '';
+    display: block;
+    clear: both;
 }

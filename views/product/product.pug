@@ -22,20 +22,41 @@ block content
                 a.page-link(href='/product?page='+(pages).toString()) Next
 
     - var n = 0
-    while n < listArrayProduct.length
-        case listArrayProduct[n].image
-            when '/background/desktop.jpg'
-                .box-picture
-                    p= listArrayProduct[n].id
-                    .picture
-                    .text
-                        p= listArrayProduct[n].decription    
-                    .btn.btn-primary Add to cart
-            when '/background/desktop1.jpg'
-                .box-picture
-                    p= listArrayProduct[n].id
-                    .picture1
-                    .text
-                        p= listArrayProduct[n].decription
-                    .btn.btn-primary Add to cart
-        - n++
+    .group-col
+        while n < listArrayProduct.length / 2
+            case listArrayProduct[n].image
+                when '/background/desktop.jpg'
+                    .box-picture
+                        p= listArrayProduct[n].name
+                        .picture
+                        .text
+                            p= listArrayProduct[n].decription    
+                        a.btn.btn-primary(href="/cart/add/" + listArrayProduct[n].id) Add to cart
+                when '/background/desktop1.jpg'
+                    .box-picture
+                        p= listArrayProduct[n].name
+                        .picture1
+                        .text
+                            p= listArrayProduct[n].decription
+                        a.btn.btn-primary(href="/cart/add/" + listArrayProduct[n].id) Add to cart
+            - n++
+    
+    - var n = parseInt(listArrayProduct.length / 2)
+    .group-col
+        while n < listArrayProduct.length
+            case listArrayProduct[n].image
+                when '/background/desktop.jpg'
+                    .box-picture
+                        p= listArrayProduct[n].name
+                        .picture
+                        .text
+                            p= listArrayProduct[n].decription    
+                        a.btn.btn-primary(href="/cart/add/" + listArrayProduct[n].id) Add to cart
+                when '/background/desktop1.jpg'
+                    .box-picture
+                        p= listArrayProduct[n].name
+                        .picture1
+                        .text
+                            p= listArrayProduct[n].decription
+                        a.btn.btn-primary(href="/cart/add/" + listArrayProduct[n].id) Add to cart
+            - n++

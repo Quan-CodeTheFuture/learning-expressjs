@@ -4,6 +4,9 @@ const { request, response } = require('express');
 var adapter = new FileSync('db.json');
 var db = low(adapter);
 
-db.defaults({users:[]}).write();
+db.defaults({
+    users:[], 
+    sessions:[]
+}).write();
 
 module.exports = db;
